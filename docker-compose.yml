@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  provider-mock:
+    build: .
+    networks:
+    - default
+    ports:
+    - 9001:9001
+    environment:
+      - MARKETPLACE_BACKEND_HOST=marketplace-backend
+      - MY_SERVER_HOST=provider-mock
+networks:
+  default:
+    external:
+      name: marketplace-backend_net-backend
+

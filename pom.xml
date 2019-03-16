@@ -78,7 +78,7 @@
 					<generatePackage>products.wsdl</generatePackage>
 					<schemas>
 						<schema>
-							<url>http://localhost:9000/ws/products.wsdl</url>
+							<url>src/main/resources/products.wsdl</url>
 						</schema>
 					</schemas>
 				</configuration>

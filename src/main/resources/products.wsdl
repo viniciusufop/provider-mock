@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="dto.soap.marketplacebackend.vfs.com.br" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://marketplace-backend:9000/ws" targetNamespace="http://marketplace-backend:9000/ws">
+  <wsdl:types>
+    <xs:schema xmlns:tns="dto.soap.marketplacebackend.vfs.com.br" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="dto.soap.marketplacebackend.vfs.com.br">
+
+    <xs:element name="ProductWSRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="productsWS" type="tns:productWS"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ProductWSResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="tns:statusWS"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="productWS">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="auth_provider" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="value" type="xs:decimal"/>
+            <xs:element name="type" type="tns:typeWS"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="typeWS">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="NOTEBOOK"/>
+            <xs:enumeration value="DESKTOP"/>
+            <xs:enumeration value="MONITOR"/>
+            <xs:enumeration value="COMPONENTE"/>
+            <xs:enumeration value="PERIFERICO"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="statusWS">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SUCCESS"/>
+            <xs:enumeration value="ERROR"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ProductWSResponse">
+    <wsdl:part element="sch:ProductWSResponse" name="ProductWSResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProductWSRequest">
+    <wsdl:part element="sch:ProductWSRequest" name="ProductWSRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ProductPort">
+    <wsdl:operation name="ProductWS">
+      <wsdl:input message="tns:ProductWSRequest" name="ProductWSRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:ProductWSResponse" name="ProductWSResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProductPortSoap11" type="tns:ProductPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ProductWS">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="ProductWSRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ProductWSResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProductPortService">
+    <wsdl:port binding="tns:ProductPortSoap11" name="ProductPortSoap11">
+      <soap:address location="http://localhost:9000/ws/products"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
