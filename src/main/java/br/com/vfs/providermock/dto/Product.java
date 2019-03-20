@@ -1,10 +1,15 @@
 package br.com.vfs.providermock.dto;
 
 import java.math.BigDecimal;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import products.wsdl.TypeWS;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Data
 public class Product {
